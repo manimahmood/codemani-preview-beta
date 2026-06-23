@@ -1,5 +1,15 @@
 # CodeMani Preview Beta
 
+> **In plain words:** A `.mani` code packet is like a sealed work order for a
+> code change. Instead of saving a loose chat transcript or prompt, it records
+> exactly which code was involved (by fingerprint), what you asked for, the
+> target language/runtime, and which checks must pass. A trusted "materializer"
+> then either produces the change *and* proves it passed those checks — or
+> refuses, rather than guessing. This public preview lets you open one example
+> packet and re-run its result yourself. It is not a general code translator and
+> not an autonomous coding agent — it is a verifiable, repeatable way to package
+> one specific, supported code change.
+
 **Patent Notice:** CodeMani technologies, data containers, and associated
 workflows are patent pending. No patent license is granted by this beta repo
 beyond the limited evaluation permission stated in [LICENSE](LICENSE).

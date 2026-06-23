@@ -1,5 +1,12 @@
 # CodeMani FAQ
 
+> **In plain words:** Quick answers to the common questions — mainly "how is
+> this different from tools like Replit or an AI coding agent?" Short version:
+> those are places where you write and run software. CodeMani is narrower — it's
+> a way to package one specific, supported code change as a verifiable "work
+> order" (a `.mani` packet) that a trusted engine can replay and check, or
+> refuse. It is not a general translator and not an agent that codes on its own.
+
 ## How is this different from Replit or an AI coding agent?
 
 Replit-style tools are interactive coding environments. They help you write,

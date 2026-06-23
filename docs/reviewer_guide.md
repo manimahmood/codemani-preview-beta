@@ -1,5 +1,12 @@
 # CodeMani Reviewer Guide
 
+> **In plain words:** If you're here to give feedback, this page shows the easy
+> ways to do it. You don't need to audit any hidden code. You can spend two
+> minutes just reading, or five minutes running one command that replays a
+> built-in example, then tell us whether the idea makes sense and whether you'd
+> use it. We're asking about usefulness and trust — not asking you to inspect a
+> secret engine.
+
 This repo is asking for product and trust feedback, not a full source-code audit.
 
 ## The Short Ask

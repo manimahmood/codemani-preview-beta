@@ -1,5 +1,13 @@
 # CodeMani Public Beta Announcement Draft
 
+> **In plain words:** This is the short, shareable description of the beta.
+> CodeMani packages a single, supported code change as a verifiable `.mani`
+> "work order" instead of a throwaway prompt or patch — recording which code was
+> involved, what was requested, and which checks must pass. The public preview
+> lets anyone open an example packet and re-run its result. It does not include
+> the private engine, customer code, or model code, and it isn't claiming to
+> translate arbitrary code or refactor on its own.
+
 CodeMani is a public-safe preview of a compact code-intent packet workflow.
 
 Instead of treating a generated patch or prompt transcript as the durable unit
