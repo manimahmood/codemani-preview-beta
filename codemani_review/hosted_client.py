@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import base64
+import hashlib
 import json
 import os
 import urllib.error
@@ -39,6 +40,45 @@ def normalize_materializer_url(api_url: str) -> str:
             f"api_url host {parsed.hostname!r} is not allowed; set CODEMANI_ALLOWED_API_HOSTS to opt in"
         )
     return url
+
+
+def hosted_materializer_health_url(api_url: str) -> str:
+    normalized = normalize_materializer_url(api_url)
+    parsed = urllib.parse.urlparse(normalized)
+    path = parsed.path
+    if path.endswith("/v1/materialize"):
+        path = path[: -len("/v1/materialize")] + "/health"
+    else:
+        path = path.rstrip("/") + "/health"
+    return urllib.parse.urlunparse(parsed._replace(path=path, query="", fragment=""))
+
+
+def check_hosted_materializer_health(api_url: str, timeout_seconds: int = 10) -> dict[str, Any]:
+    health_url = hosted_materializer_health_url(api_url)
+    parsed = urllib.parse.urlparse(health_url)
+    request = urllib.request.Request(
+        health_url,
+        headers={"Accept": "application/json", "User-Agent": "codemani-hosted-health"},
+        method="GET",
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=max(1, int(timeout_seconds))) as response:
+            data = response.read(128_001)
+            if len(data) > 128_000:
+                return {"status": "FAIL", "host": parsed.hostname, "path": parsed.path, "reason": "health response exceeds safety budget"}
+            text = data.decode("utf-8", errors="replace")
+            return {
+                "status": "PASS",
+                "host": parsed.hostname,
+                "path": parsed.path,
+                "http_status": getattr(response, "status", None),
+                "body_sha256": hashlib.sha256(data).hexdigest(),
+                "body_preview": text[:160],
+            }
+    except urllib.error.HTTPError as exc:
+        return {"status": "UNREACHABLE", "host": parsed.hostname, "path": parsed.path, "http_status": exc.code, "reason": exc.reason}
+    except urllib.error.URLError as exc:
+        return {"status": "UNREACHABLE", "host": parsed.hostname, "path": parsed.path, "reason": str(exc.reason)}
 
 
 def read_api_token(token_env: str = "") -> str:

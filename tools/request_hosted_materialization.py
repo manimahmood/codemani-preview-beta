@@ -8,7 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from codemani_review.hosted_client import DEFAULT_MATERIALIZER_URL, request_hosted_materialization
+from codemani_review.hosted_client import DEFAULT_MATERIALIZER_URL, check_hosted_materializer_health, request_hosted_materialization
 
 
 def main() -> int:
@@ -18,7 +18,12 @@ def main() -> int:
     parser.add_argument("--target", default="javascript.commonjs")
     parser.add_argument("--token-env", default="CODEMANI_API_TOKEN")
     parser.add_argument("--timeout-seconds", type=int, default=60)
+    parser.add_argument("--health", action="store_true", help="Check hosted materializer health without sending a .mani packet.")
     args = parser.parse_args()
+    if args.health:
+        result = check_hosted_materializer_health(args.api_url, timeout_seconds=args.timeout_seconds)
+        print(json.dumps(result, indent=2, sort_keys=True))
+        return 0 if result.get("status") == "PASS" else 1
     try:
         response = request_hosted_materialization(
             api_url=args.api_url,

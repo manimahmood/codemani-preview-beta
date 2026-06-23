@@ -11,6 +11,8 @@ from unittest import mock
 
 from codemani_review.hosted_client import (
     RESPONSE_SCHEMA,
+    check_hosted_materializer_health,
+    hosted_materializer_health_url,
     normalize_materializer_url,
     read_api_token,
     request_hosted_materialization,
@@ -75,6 +77,12 @@ class PublicBoundaryTests(unittest.TestCase):
             "https://api.sfiniti.ai/v1/materialize",
         )
 
+    def test_hosted_health_url_uses_health_endpoint(self) -> None:
+        self.assertEqual(
+            hosted_materializer_health_url("https://api.sfiniti.ai/v1/materialize"),
+            "https://api.sfiniti.ai/health",
+        )
+
     def test_hosted_url_rejects_unapproved_http_host(self) -> None:
         with self.assertRaises(ValueError):
             normalize_materializer_url("http://example.com/v1/materialize")
@@ -123,6 +131,12 @@ class PublicBoundaryTests(unittest.TestCase):
             )
         self.assertEqual(result["schema"], RESPONSE_SCHEMA)
         self.assertEqual(result["status"], "PASS")
+
+    def test_hosted_health_accepts_bounded_response(self) -> None:
+        with mock.patch("urllib.request.urlopen", return_value=FakeResponse(b'{"status":"ok"}')):
+            result = check_hosted_materializer_health("https://api.sfiniti.ai/v1/materialize")
+        self.assertEqual(result["status"], "PASS")
+        self.assertEqual(result["host"], "api.sfiniti.ai")
 
     def test_hosted_materialization_rejects_bad_schema(self) -> None:
         body = json.dumps({"schema": "unexpected", "status": "PASS"}).encode("utf-8")
