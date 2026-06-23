@@ -1,0 +1,53 @@
+name: Bug report
+description: Report a packet inspection, hash, hosted-client, or replay failure.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please remove private paths, private prompts, proprietary code, API keys, and customer data before posting.
+
+  - type: input
+    id: python_version
+    attributes:
+      label: Python version
+    validations:
+      required: false
+
+  - type: input
+    id: node_version
+    attributes:
+      label: Node.js version
+    validations:
+      required: false
+
+  - type: dropdown
+    id: failure_type
+    attributes:
+      label: What failed?
+      options:
+        - Review script failed
+        - Packet inspection failed
+        - Source hash check failed
+        - Node oracle failed
+        - Hosted API client failed
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Do not include secrets or private source code.
+    validations:
+      required: true
+
+  - type: textarea
+    id: error
+    attributes:
+      label: Error text
+      description: Paste the shortest useful error. Remove private paths if needed.
+    validations:
+      required: false

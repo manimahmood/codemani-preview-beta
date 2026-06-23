@@ -1,0 +1,47 @@
+{
+  "claim_boundary": "Verifiable receipt for the public synthetic sample. It proves packet/source/output/oracle consistency, not open-source access to the private materializer.",
+  "materializer_id": "codemani.python_subset_to_js.v1",
+  "oracle": {
+    "command": [
+      "node",
+      "examples/materialized/oracle.js"
+    ],
+    "returncode": 0,
+    "stdout_json": {
+      "pressure": 0.8032484375,
+      "reward": 0.6480000000000001,
+      "status": "PASS"
+    }
+  },
+  "outputs": [
+    {
+      "path": "examples/materialized/motion_math.js",
+      "sha256_normalized": "c7fdc182952f23514d070e3bfb21bb40725add8c272504c275a38712d7756cee"
+    },
+    {
+      "path": "examples/materialized/scoring.js",
+      "sha256_normalized": "b61120e50c319dab9dc8ffaf1ada959e42dd4169444e528d59b0f853aa6cc078"
+    },
+    {
+      "path": "examples/materialized/oracle.js",
+      "sha256_normalized": "637865ae714ca0ebfbda3d66d35ad10bc2cf9ff9f9c990b5b2b5ee9a452352f6"
+    }
+  ],
+  "packet": {
+    "bytes": 876,
+    "path": "examples/synthetic_package_slice.mani",
+    "sha256": "d14af806ae1d8e89a3b557ef714d6d3c1b8f83a839271a68225259772f218d5b"
+  },
+  "schema": "codemani.materialization_receipt.v1",
+  "sources": [
+    {
+      "path": "examples/source/motion_math.py",
+      "sha256_normalized": "1a1e274d5491c9ce3765ff45ebe2b656bcbbd4689461ec183e7b2cf88f11084f"
+    },
+    {
+      "path": "examples/source/scoring.py",
+      "sha256_normalized": "133fcc24b7b1099fa8bc453d78b4a3f310d1481dd7ecfd167388e5a6f151c300"
+    }
+  ],
+  "status": "PASS"
+}

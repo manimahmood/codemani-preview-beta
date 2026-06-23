@@ -1,0 +1,86 @@
+name: Beta feedback
+description: Answer the questions that help decide whether CodeMani is useful.
+title: "[Feedback]: "
+labels: ["feedback"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for looking. The main question is: would a compact code-intent packet help you review, reproduce, or transfer AI-assisted coding work?
+
+        You can answer after reading only, after running `python tools/run_review.py`, or after reviewing the hosted API boundary. Please do not paste private prompts, proprietary code, API keys, customer data, private paths, or internal repository names.
+
+  - type: dropdown
+    id: reviewer_type
+    attributes:
+      label: Which best describes you?
+      options:
+        - I build developer tools
+        - I use AI coding tools regularly
+        - I work on code migration or transpilation
+        - I am doing a technical/security review
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: hands_on_level
+    attributes:
+      label: How far did you get?
+      options:
+        - Ran the review script successfully
+        - Read the code/docs only
+        - Tried the hosted API client
+        - Could not run it
+    validations:
+      required: true
+
+  - type: dropdown
+    id: useful_packet
+    attributes:
+      label: Could a code-intent packet help your workflow?
+      options:
+        - Yes, clearly
+        - Maybe, with real examples
+        - Maybe, with a hosted materializer
+        - No, I do not have this problem
+        - Not sure yet
+    validations:
+      required: true
+
+  - type: textarea
+    id: real_workflow
+    attributes:
+      label: What real workflow would you try this in?
+      description: Example: migration review, agent safety, reproducible codegen, transpilation, internal tooling. If none, say "none" and why.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: preferred_delivery
+    attributes:
+      label: Which delivery model would you prefer?
+      options:
+        - Local materializer
+        - Hosted private materializer
+        - Both local and hosted options
+        - Review packet only
+        - None of these
+    validations:
+      required: true
+
+  - type: textarea
+    id: confusing_part
+    attributes:
+      label: What was confusing, missing, or risky?
+      description: Examples: unclear packet purpose, hosted trust model, install friction, not enough examples, security concerns.
+    validations:
+      required: true
+
+  - type: textarea
+    id: next_useful_step
+    attributes:
+      label: What one change would make you more likely to try it again?
+      description: Examples: hosted demo, local CLI, harder example, signed receipts, CI integration, more docs.
+    validations:
+      required: true
